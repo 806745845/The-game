@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>HTML5学堂 - H5course</title>
+	<meta name="viewport" content="width=device-width,user-scalable=no">
+	<link rel="stylesheet" href="../css/reset.css">
+	<style>
+		.wrap {
+			width: 300px;
+			height: 300px;
+			border: 1px solid #ccc;
+			margin: 20px auto 0;
+		}
+		.wrap div {
+			float: left;
+			width: 148px;
+			height: 148px;
+			border: 1px solid orange;
+		}
+	</style>
+</head>
+<body>
+	<button id="btn">点击</button>
+	<div class="wrap" id="box">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	<script>
+		var col = document.getElementById('box').children;
+		var len = col.length;
+		var timer2 = null;
+		var timer = null;
+
+		// 初始状态
+		function initial() {
+			for (var i = 0; i < len; i++) {
+				col[i].style.background = 'rgb(255, 0, 0)';
+				col[i].onclick = null;
+			}
+		}initial();
+
+// 点击倒计时
+		var btn = document.getElementById('btn');
+		var t = 0;//时间
+		var step = 1;//速度
+		btn.onclick = function() {
+			ran();
+			t = 5;
+			function move() {
+				t -= step;
+				console.log(t);
+				if (t <= 0) {
+					clearInterval(timer3);
+					clearInterval(timer);
+					clearTimeout(timer2);
+					alert('游戏结束');
+					initial();
+				}
+			}
+			
+			var timer3 = setInterval(move, 1000);
+		}
+
+
+
+		// 点击状态四种颜色有其中一种改变颜色
+		function ran() {
+			for (var i = 0; i < len; i++) {
+				col[i].style.background = 'rgb(255, 0, 0)';
+				col[i].onclick = null;
+			}
+			var num = Math.floor(Math.random() * 4);
+			col[num].style.background = 'rgba(255, 0, 0, 0.6)';
+			// col[num].onclick = clickFun;
+			// console.log(clickFun);
+			col[num].onclick = function() {
+				
+			}
+		};
+
+		//点击
+		function clickFun() {
+			clearInterval(timer);
+			for (var i = 0; i < len; i++) {
+				col[i].style.background = 'rgb(255, 0, 0)';
+				col[i].onclick = null;
+			}
+			timer2 = setTimeout(function(){
+				ran();
+				timer = setInterval(ran, 5000);
+			}, 1000)
+		}
+	</script>
+</body>
+</html>
