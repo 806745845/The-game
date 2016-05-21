@@ -1,0 +1,238 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>HTML5学堂 - H5course</title>
+	<meta name="viewport" content="width=device-width,user-scalable=no">
+	<link rel="stylesheet" href="../css/reset.css">
+	<style>
+		.wrap {
+			width: 400px;
+			height: 400px;
+			border: 1px solid #ccc;
+			margin: 20px auto 0;
+		}
+		.wrap div {
+			float: left;
+			width: 98px;
+			height: 98px;
+			border: 1px solid orange;
+		}
+		.score {
+			width: 200px;
+			height: 60px;
+			margin: 10px auto 0;
+			font-size: 16px;
+			line-height: 60px;
+			text-align: center;
+			background: orange;
+		}
+		.fra {
+			width: 200px;
+			height: 60px;
+			margin: 10px auto 0;
+			line-height: 60px;
+			text-align: center;
+			background: #39f;
+		}
+		.con {
+			position: absolute;
+			top: 200px;
+			left: 40px;
+			float: left;
+			width: 100px;
+			height: 60px;
+		}
+		.music {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="score" id="score">300</div>
+	<div class="fra" id="fra">分数</div>
+	<button id="btn">点击/重新开始</button>
+	<button id="btnStop">暂停</button>
+	<button id="btnStart">取消暂停</button>
+	<div class="wrap" id="box">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	<div class="con">
+		<button id="musicBox">设置</button>
+		<button id="musicDis">隐藏</button>
+		<audio id="music" class="music" controls="controls" autoplay="autoplay">
+	  		<source src="../11_爱给网_2gei_com.mp3" type="audio/mpeg" />
+		</audio>
+	</div>
+	
+	<script>
+		var col = document.getElementById('box').children,
+			btn = document.getElementById('btn'),
+			btnStop = document.getElementById('btnStop'),
+			btnStart = document.getElementById('btnStart'),
+			score = document.getElementById('score'),
+			fra = document.getElementById('fra'),
+			musicBox = document.getElementById('musicBox'),
+			music = document.getElementById('music'),
+			musicDis = document.getElementById('musicDis');
+
+		var len = col.length,
+			timer2 = null,
+			timer = null,
+			timer3 = null,
+			spot = true,
+			timerStart = null;
+		
+		var t = 0,//时间
+			step = 1,//速度
+			result = 0,
+			bowlings = true;
+
+		// 初始状态
+		function initial() {
+			t = 300;
+			for (var i = 0; i < len; i++) {
+				col[i].style.background = 'rgb(255, 0, 0)';
+				col[i].onclick = null;
+			}
+		}initial();
+
+		// 点击倒计时
+		btn.onclick = function() {
+			clearInterval(timer3);
+			clearInterval(timer);
+			clearTimeout(timer2);
+			clearInterval(timerStart);	
+
+		//初始化状态
+			t = 300;
+			score.innerHTML = 300;
+			move();
+
+			result = 0;
+			fra.innerHTML = 0;
+			ran();
+
+		//没有点击时5秒自动换一次
+			timer = setInterval(ran, 5000);
+			clearInterval(timerStart);
+			ran();
+
+		//倒计时
+			function move() {
+				t -= step;
+				score.innerHTML = t;
+				if (t <= 0) {
+					clearInterval(timer3);
+					clearInterval(timer);
+					clearTimeout(timer2);
+					alert('游戏结束');
+					t = 300;
+					initial();
+
+				}
+				console.log(t);
+			}
+			if (spot) {
+				timer3 = setInterval(move, 1000);
+			}
+		}
+
+		// 点击状态四种颜色有其中一种改变颜色
+		function ran() {
+			for (var i = 0; i < len; i++) {
+				col[i].style.background = 'rgb(255, 0, 0)';
+				col[i].onclick = null;
+			}
+				var num = Math.floor(Math.random() * 4);
+				col[num].style.background = 'rgba(255, 0, 0, 0.6)';
+
+		// 关卡设置
+			col[num].onclick = function() {
+				if (bowlings) {
+					result += 1;//分数
+				}
+				fra.innerHTML = result * 20;
+
+		//过此关需要的个数；
+				if (result >= 5) {
+					clearInterval(timer);
+					clearTimeout(timer2);
+					clearInterval(timerStart);	
+					alert("成功进入下一关");
+					t = 300;
+					score.innerHTML = 300;
+					result = 0;
+					fra.innerHTML = '分数';
+				}
+				if(spot) {
+					clickFun();
+				}
+			} 
+		};
+
+		//点击成功后隔一秒跳出来下一个
+		function clickFun() {
+			clearInterval(timer);
+			for (var i = 0; i < len; i++) {
+				col[i].style.background = 'rgb(255, 0, 0)';
+				col[i].onclick = null;
+			}
+			if(spot) {
+				timer2 = setTimeout(function(){
+					ran();
+					timer = setInterval(ran, 5000);
+				}, 1000)
+			}
+		}
+
+		//暂停
+		btnStop.onclick = function() {
+			spot = false;
+			bowlings = false;
+			clearInterval(timer);
+			clearInterval(timer3);
+			clearTimeout(timer2);
+			clearInterval(timerStart);
+		}
+
+		//取消暂停
+		btnStart.onclick = function() {
+			clearInterval(timerStart);
+			spot = true;
+			bowlings = true;
+			clearInterval(timer3);
+			clearInterval(timer);
+			clearTimeout(timer2);
+			function startMove() {
+				t -= step;
+				score.innerHTML = t;
+			}startMove();
+			timerStart = setInterval(startMove, 1000);
+		}
+		
+		//点击出现音频设置
+		musicBox.onclick = function() {
+			music.style.display = 'block';
+		}
+		musicDis.onclick = function() {
+			music.style.display = 'none';
+		}
+	</script>
+</body>
+</html>
