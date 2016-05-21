@@ -19,7 +19,6 @@
 			border: 1px solid orange;
 		}
 		.score {
-			/*width: 200px;*/
 			width: 200px;
 			height: 60px;
 			margin: 10px auto 0;
@@ -28,10 +27,19 @@
 			text-align: center;
 			background: orange;
 		}
+		.fra {
+			width: 200px;
+			height: 60px;
+			margin: 10px auto 0;
+			line-height: 60px;
+			text-align: center;
+			background: #39f;
+		}
 	</style>
 </head>
 <body>
-	<div class="score" id="score"></div>
+	<div class="score" id="score">300</div>
+	<div class="fra" id="fra">分数</div>
 	<button id="btn">点击/重新开始</button>
 	<button id="btnStop">暂停</button>
 	<button id="btnStart">取消暂停</button>
@@ -58,7 +66,8 @@
 			btn = document.getElementById('btn'),
 			btnStop = document.getElementById('btnStop'),
 			btnStart = document.getElementById('btnStart'),
-			score = document.getElementById('score');
+			score = document.getElementById('score'),
+			fra = document.getElementById('fra');
 
 		var len = col.length,
 			timer2 = null,
@@ -81,11 +90,14 @@
 		// 点击倒计时
 		btn.onclick = function() {
 			clearInterval(timer);
-			timer = setInterval(ran, 5000);//没有点击时5秒自动换一次
+
+		//没有点击时5秒自动换一次
+			timer = setInterval(ran, 5000);
 			clearInterval(timerStart);
 			ran();
 			t = 300;
-			//倒计时
+
+		//倒计时
 			function move() {
 				t -= step;
 				score.innerHTML = t;
@@ -93,7 +105,6 @@
 					clearInterval(timer3);
 					clearInterval(timer);
 					clearTimeout(timer2);
-					// score.innerHTML = t;
 					alert('游戏结束');
 					initial();
 				}
@@ -102,7 +113,6 @@
 				timer3 = setInterval(move, 1000);
 			}
 		}
-		
 		// 点击状态四种颜色有其中一种改变颜色
 		function ran() {
 			for (var i = 0; i < len; i++) {
@@ -116,7 +126,7 @@
 				if (bowlings) {
 					result += 1;//分数
 				}
-				console.log(result);
+				fra.innerHTML = result * 20;
 				//过此关需要的个数；
 				if (result >= 5) {
 					clearInterval(timer3);
@@ -125,6 +135,7 @@
 					clearInterval(timerStart);	
 					alert("成功进入下一关");
 					result = 0;
+					fra.innerHTML = '分数';
 				}
 				if(spot) {
 					clickFun();
