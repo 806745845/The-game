@@ -22,6 +22,7 @@
 </head>
 <body>
 	<button id="btn">点击</button>
+	<button id="btnStop">暂停</button>
 	<div class="wrap" id="box">
 		<div></div>
 		<div></div>
@@ -30,9 +31,12 @@
 	</div>
 	<script>
 		var col = document.getElementById('box').children;
+		var btnStop = document.getElementById('btnStop');
 		var len = col.length;
 		var timer2 = null;
 		var timer = null;
+		var timer3 = null;
+		// var sopt = true;
 
 		// 初始状态
 		function initial() {
@@ -47,8 +51,9 @@
 		var t = 0;//时间
 		var step = 1;//速度
 		btn.onclick = function() {
+			timer = setInterval(ran, 5000);
 			ran();
-			t = 5;
+			t = 300;
 			function move() {
 				t -= step;
 				console.log(t);
@@ -61,37 +66,64 @@
 				}
 			}
 			
-			var timer3 = setInterval(move, 1000);
+			timer3 = setInterval(move, 1000);
 		}
 
 
-
+		var result = 0;
+		var bowlings = true;
 		// 点击状态四种颜色有其中一种改变颜色
-		function ran() {
-			for (var i = 0; i < len; i++) {
-				col[i].style.background = 'rgb(255, 0, 0)';
-				col[i].onclick = null;
-			}
-			var num = Math.floor(Math.random() * 4);
-			col[num].style.background = 'rgba(255, 0, 0, 0.6)';
-			// col[num].onclick = clickFun;
-			// console.log(clickFun);
-			col[num].onclick = function() {
-				
-			}
-		};
+			function ran() {
+				for (var i = 0; i < len; i++) {
+					col[i].style.background = 'rgb(255, 0, 0)';
+					col[i].onclick = null;
+				}
+					var num = Math.floor(Math.random() * 4);
+					col[num].style.background = 'rgba(255, 0, 0, 0.6)';
+				// 关卡设置
+					col[num].onclick = function() {
+					if (bowlings) {
+						result += 1;
+					}
+						console.log(result);
+						//过此关需要的个数；
+						if (result >= 2) {	
+							alert('成功进入下一关');
+							result = 0;
+							clearInterval(timer3);
+							clearInterval(timer);
+							clearTimeout(timer2);
+						}
+						clickFun();
+					} 
+			};
 
-		//点击
-		function clickFun() {
-			clearInterval(timer);
-			for (var i = 0; i < len; i++) {
-				col[i].style.background = 'rgb(255, 0, 0)';
-				col[i].onclick = null;
+
+		//点击成功后隔一秒跳出来下一个
+			function clickFun() {
+				clearInterval(timer);
+				for (var i = 0; i < len; i++) {
+					col[i].style.background = 'rgb(255, 0, 0)';
+					col[i].onclick = null;
+				}
+				timer2 = setTimeout(function(){
+					ran();
+					timer = setInterval(ran, 5000);
+				}, 1000)
 			}
-			timer2 = setTimeout(function(){
-				ran();
-				timer = setInterval(ran, 5000);
-			}, 1000)
+
+		//暂停
+		btnStop.onclick = function() {
+			bowlings = false;
+			// clickFun = null;
+			// col[num].onclick = null;
+			// function ran() {
+			// 	col[num].onclick = null;
+			// }
+			clearInterval(timer3);
+			clearInterval(timer);
+			clearTimeout(timer2);
+			
 		}
 	</script>
 </body>
