@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>童年翻翻看</title>
+	<meta name="viewport" content="width=device-width,user-scalable=no">
+	<link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="../css/index.css">
+	<link rel="shortcut icon" href="../images/my.ico">
+</head>
+<body>
+	<div class="game clearfix">
+		<div class="game-left">
+			<strong>60</strong>
+			<h3></h3>
+			<h2>翻开两个卡片，一样的成功解锁此卡片</h2>
+			<div class="game-con clearfix">
+				<div><em></em><span></span></div>
+				<div><em></em><span></span></div>
+				<div><em></em><span></span></div>
+				<div><em></em><span></span></div>
+				<div><em></em><span></span></div>
+				<div><em></em><span></span></div>
+				<div><em></em><span></span></div>
+				<div><em></em><span></span></div>
+				<div><em></em><span></span></div>
+				<div><em></em><span></span></div>
+				<div><em></em><span></span></div>
+				<div><em></em><span></span></div>
+				<div><em></em><span></span></div>
+				<div><em></em><span></span></div>
+				<div><em></em><span></span></div>
+				<div><em></em><span></span></div>
+			</div>
+		</div>
+		<div class="game-right">
+			<h2>已得到的物品</h2>
+			<div class="get clearfix">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<div class="congratu_inter clearfix">
+		<div class="gongratu_game">恭喜！顺利通关</div>
+		<div class="gongratu_gift">让我们看看您得到了什么物品吧！</div>
+		<div class="gongratu_pic">
+		</div>
+		<div class="gongratu_collection">我的收藏</div>
+	</div>
+	<div class="end_inter clearfix">
+		<div class="end_game">游戏结束</div>
+		<div class="gift">让我们看看您得到了什么物品吧！</div>
+		<div class="pic">
+		</div>
+		<div class="collectionn">我的收藏</div>
+	</div>
+	<div class="collection clearfix">
+			<h2>我的收藏</h2>
+			<div class="coll-con clearfix">				
+				<div><em></em><img src="../images/gamepic1.jpg" alt="图片" title="图片"></div>
+				<div><em></em><img src="../images/gamepic2.jpg" alt="图片" title="图片"></div>
+				<div><em></em><img src="../images/gamepic3.jpg" alt="图片" title="图片"></div>
+				<div><em></em><img src="../images/gamepic4.jpg" alt="图片" title="图片"></div>
+				<div><em></em><img src="../images/gamepic5.jpg" alt="图片" title="图片"></div>
+				<div><em></em><img src="../images/gamepic6.jpg" alt="图片" title="图片"></div>
+				<div><em></em><img src="../images/gamepic7.jpg" alt="图片" title="图片"></div>
+				<div><em></em><img src="../images/gamepic8.jpg" alt="图片" title="图片"></div>
+				<dl>
+					<dt><img src="" alt="图片" title="图片"></dt>
+					<dd class="clearfix">
+						<p id="introduce"></p>
+						<span>关闭</span>
+					</dd>
+				</dl>
+				<h3>请重新游戏，获取更多解锁图片!!!
+					<span>确认</span>
+				</h3>
+			</div>
+			<div class="again">再玩一次</div>
+	</div>
+	<audio src="../source/childhood.mp3" hidden="false" autoplay="true" loop="true"></audio>
+</body>
+<script src="../js/jquery-1.12.3.js"></script>
+<script type="text/javascript">
+	
+	var timer = null;
+	var nowTime = 60;
+	var result = [];
+	var getPic = [];
+	function init () {
+		for (var i = 0; i < $('.game-con div').length; i++) {
+			$('.game-con div').eq(i).css('animation', 'move 1s linear forwards');
+		}
+		setTimeout(function(){
+			for (var i = 0; i < $('.game-con div').length; i++) {
+				$('.game-con div').eq(i).css('animation', 'back 1s linear forwards');
+			}
+			timer = setInterval(sport, 1000);
+		}, 3000)
+		play();
+	} init();
+	function sport () {
+		nowTime -- ;
+		if (nowTime < 0) {
+			clearInterval(timer);
+			$(".end_inter").css('display', 'block');
+			$('.game').css('display', 'none');
+		} else {
+			$('.game-left strong').html(nowTime);
+		}
+
+	}
+	function play () {
+		for (var i = 0; i < $('.game .get').children().length; i++) {
+			$('.game .get div').eq(i).css({
+				'background' : 'url("../images/gamepic' + (i + 1) + '.jpg") no-repeat',
+				'background-size' : 'cover'
+				})
+		}
+		var arr = [];
+		for (var i = 1; i <= $('.game .get').children().length; i++) {
+			arr.push(i);
+			arr.push(i);
+		}
+		var maxNum = arr.length;
+		for (var i = 0; i < maxNum; i++) {
+			var num = Math.floor(Math.random() * arr.length);
+			result.push(arr[num]);
+			arr[num] = arr[arr.length - 1];
+			arr.length--;
+		}
+		var lastClick = null;
+		var nowIsClik = false;
+		for (var i = 0; i < $('.game-con').children().length; i++) {
+			$('.game-con div span').eq(i).css({
+				'background' : 'url("../images/gamepic' + result[i] + '.jpg") no-repeat',
+				'background-size' : 'cover'
+			})
+		}
+		$('.game-con div').click(function(){
+			var _this = this;
+			if (!nowIsClik) {
+				$(this).css({
+					'animation' : 'move 1s linear forwards'
+				})
+				setTimeout(function(){
+					isOrNot(_this);
+				}, 1000);
+			}
+			nowIsClik = true;
+		})
+		var nowLast = $('.game-right .get div').length;
+		function isOrNot (_this) {
+			if (lastClick == null) {
+				lastClick = $(_this).index();
+			} else {
+				if (result[$(_this).index()] == result[lastClick]  && lastClick != null) {
+					$(_this).css('visibility', 'hidden');
+					$('.game-con div').eq(lastClick).css('visibility', 'hidden');
+					$('.game-right .get div').eq(result[lastClick] - 1).fadeIn(1000);
+					getPic.push(result[lastClick]);
+					lastClick = null;
+					nowLast -- ;
+					if (nowLast <= 0) {
+						$('.congratu_inter').css('display', 'block');
+						$('.game').css('display', 'none');
+						clearInterval(timer);
+					}
+				} else {
+					$(_this).css('animation', 'back 1s linear forwards')
+					$('.game-con div').eq(lastClick).css('animation', 'back 1s linear forwards');
+					lastClick = null;
+				}
+			}
+			nowIsClik = false;
+		}
+	}
+	$('.gongratu_collection').on('click', function() {
+		$('.congratu_inter').css({
+			'display' : 'none'
+		});
+		$('.collection').css('display', 'block');
+		for (var i = 0; i < getPic.length; i++) {
+			$('.coll-con').find('em').eq(getPic[i] - 1).css('display', 'none');
+		}
+	})
+	$('.collectionn').on('click', function() {
+		$('.end_inter').css({
+			'display' : 'none'
+		});
+		$('.collection').css('display', 'block');
+		for (var i = 0; i < getPic.length; i++) {
+			$('.coll-con').find('em').eq(getPic[i] - 1).css('display', 'none');
+		}
+	})
+
+	var clicknum = true;
+	$('.coll-con div').click(function() {
+		var _this = this;
+		if (clicknum) {				
+			if ($(this).html() == '<img src="../images/question.jpg" alt="图片" title="图片">') {
+				$('.coll-con h3').css({
+					'display' : 'block'
+				})
+			} else {
+				$('.coll-con dl').css({
+					'display' : 'block'
+				})
+				$('.coll-con dl dt').html($(this).html());
+				var xhr = new XMLHttpRequest();
+				xhr.onload = function() {
+					var result = JSON.parse(xhr.responseText);
+					var introduce = document.getElementById('introduce');
+					console.log($(_this).index())
+					introduce.innerHTML = result[$(_this).index()].content;		
+				}
+				xhr.open('get', 'photoshow.json', true);
+				xhr.send(null);	
+			}
+		};
+		clicknum = false;
+	})
+	$('.coll-con h3 span').click(function() {
+		$(this).parent().css({
+			'display' : 'none'
+		})
+		clicknum = true;
+	})
+	$('.coll-con dd span').click(function() {
+		$('.coll-con dl').css({
+			'display' : 'none'
+		})
+		clicknum = true;
+	})
+	$('.again').click(function(){
+		location = location;
+	})
+</script>
+</html>

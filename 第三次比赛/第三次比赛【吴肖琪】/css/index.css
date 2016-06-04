@@ -1,0 +1,339 @@
+.game {
+	position: relative;
+	width: 800px;
+	margin: 100px auto;
+	padding-top: 20px;
+	border: 1px solid green;
+} 
+.game-left {
+	float: left;
+	width: 542px;
+}
+.game-left strong {
+	position: absolute;
+	top: 25px;
+	left: 37px;
+	color: red;font-weight: bold;
+	font-size: 36px;
+}
+.game-left h3 {
+	position: absolute;
+	top: 16px;
+	left: 435px;
+	width: 80px;
+	height: 60px;
+	background: url("../images/super.png") no-repeat;
+	background-size: auto 100%;
+}
+.game-left h2 {
+	width: 300px;
+	height: 50px;
+	margin: 0 auto;
+	text-align: center;
+	line-height: 50px;
+	font-size: 16px;
+	font-weight: bold;
+}
+.game-left .game-con {
+	width: 480px;
+	height: 285px;
+	margin: 20px auto;
+	padding: 15px 0 0 20px;
+	border: 1px solid green;
+}
+.game-left .game-con div {
+	float: left;
+	position: relative;
+	width: 100px;
+	height: 60px;
+	margin: 0 20px 10px 0;
+	cursor: pointer;
+	-webkit-transform-style: preserve-3d;
+}
+@keyframes move {
+	from {-webkit-transform: rotateX(0deg);}
+	to {-webkit-transform: rotateX(180deg);}
+}
+@keyframes back {
+	from {-webkit-transform: rotateX(180deg);}
+	to {-webkit-transform: rotateX(0deg);}
+}
+.game-con div span {
+	position: absolute;
+	width: 100px;
+	height: 60px;
+	-webkit-transform: rotateX(180deg);
+}
+.game-con div em {
+	position: absolute;
+	width: 100px;
+	height: 60px;
+	background: url("../images/question.jpg") center center no-repeat;
+	background-size: auto 100%;
+	z-index: 99;
+}
+.game .game-right {
+	float: left;
+	width: 235px;
+	height: 352px;
+	padding-top: 20px;
+	border: 1px solid green;
+}
+.game .game-right h2 {
+	width: 190px;
+	height: 50px;
+	margin: 0 auto;
+	text-align: center;
+	line-height: 50px;
+	font-size: 16px;
+	font-weight: bold;
+}
+.game .game-right .get {
+	width: 180px;
+	height: 248px;
+	margin: 20px auto;
+	padding: 12px 0 0 12px;
+}
+.game .get div {
+	float: left;
+	display: none;
+	width: 80px;
+	height: 50px;
+	margin: 0 10px 12px 0;
+	background: blue;
+}
+
+.end_inter {
+	display: none;
+	width: 800px;
+	margin: 100px auto 0;
+	border: 1px solid green;
+}
+.end_game {
+	width: 250px;
+	height: 70px;
+	margin: 30px auto 0;
+	color: #39f;
+	line-height: 70px;
+	font-size: 20px;
+	text-align: center;
+	cursor: pointer;
+}
+.gift {
+	width: 400px;
+	height: 60px;
+	margin: 10px auto 0;
+	line-height: 60px;
+	font-size: 20px;
+	text-align: center;
+}
+.pic {
+	overflow: hidden;
+	float: left;
+	width: 300px;
+	height: 200px;
+	margin: 20px 0 0 40px;
+	line-height: 100px;
+	font-size: 20px;
+	text-align: center;
+	background: url("../images/child.jpg") center center no-repeat;
+	background-size: cover;
+	cursor: pointer;
+}
+.pic img {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.collectionn {
+	float: left;
+	width: 140px;
+	height: 40px;
+	margin-left: 250px;
+	margin-top: 160px;
+	margin-bottom: 30px;
+	border: 2px solid green;
+	line-height: 40px;
+	font-size: 18px;
+	text-align: center;
+	cursor: pointer;
+}
+.congratu_inter {
+	display: none;
+	width: 800px;
+	margin: 100px auto 0;
+	border: 1px solid green;
+}
+.gongratu_game {
+	width: 250px;
+	height: 70px;
+	margin: 30px auto 0;
+	color: red;
+	line-height: 70px;
+	font-size: 20px;
+	text-align: center;
+	cursor: pointer;
+}
+.gongratu_gift {
+	width: 400px;
+	height: 60px;
+	margin: 10px auto 0;
+	line-height: 60px;
+	font-size: 20px;
+	text-align: center;
+}
+.gongratu_pic {
+	overflow: hidden;
+	float: left;
+	width: 300px;
+	height: 200px;
+	margin: 20px 0 0 40px;
+	line-height: 100px;
+	font-size: 20px;
+	text-align: center;
+	background: url("../images/collec_child.jpg") center center no-repeat;
+	background-size: cover;
+	cursor: pointer;
+}
+.gongratu_pic img {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.gongratu_collection {
+	float: left;
+	width: 140px;
+	height: 40px;
+	margin-left: 250px;
+	margin-top: 160px;
+	margin-bottom: 30px;
+	border: 2px solid green;
+	line-height: 40px;
+	font-size: 18px;
+	text-align: center;
+	cursor: pointer;
+}
+.collection {
+	position: relative;
+	display: none;
+	width: 800px;
+	padding: 30px 18px 10px;
+	margin: 100px auto;
+	border: 1px solid #000;
+	border-radius: 5px;
+}
+.collection h2 {
+	margin-bottom: 10px;
+	text-align: center;
+	font-size: 24px;
+}
+.coll-con div {
+	position: relative;
+	float: left;
+	width: 185px;
+	height: 112px;
+	margin: 0 20px 12px 0;
+	background: #cfc;
+	cursor: pointer;
+}
+.coll-con div em {
+	position: absolute;
+	width: 185px;
+	height: 112px;
+	background: url("../images/question.jpg") center center no-repeat;
+	background-size: auto 100%;
+}
+.coll-con div:nth-child(4) {
+	margin-right: 0;
+}
+.coll-con div:nth-child(8) {
+	margin-right: 0;
+}
+.coll-con img {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.coll-con dl {
+	display: none;
+	position: absolute;
+	top: 20px;
+	left: 215px;
+	width: 400px;
+	border: 1px solid #ccc;
+	background: #fff;
+	border-radius: 5px;
+}
+.coll-con dl dt {
+	width: 400px;
+	height: 300px;
+}
+.coll-con dd span {
+	float: left;
+	width: 60px;
+	height: 32px;
+	margin: 5px 0 5px 172px;
+	color:  #ff2400;
+	border: 1px solid #ff2400;
+	text-align: center;
+	line-height: 32px;
+	font-size: 22px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+.coll-con dd span:hover {
+	color: #fff;
+	background: #ff2400;
+	border: 1px solid #fff;
+}
+.coll-con h3 {
+	display: none;
+	position: absolute;
+	top: 100px;
+	left: 300px;
+	width: 200px;
+	height: 100px;
+	padding: 5px;
+	color: #ff2400;
+	border: 1px solid #ff2400;
+	background: #fff;
+	text-align: center;
+	font-size: 20px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+.coll-con dd p {
+	margin: 3px 5px;
+	font-size: 20px;
+	text-align: center;
+}
+.coll-con h3 span {
+	float: left;
+	width: 60px;
+	height: 32px;
+	margin: 5px 0 5px 70px;
+	color:  #ff2400;
+	border: 1px solid #ff2400;
+	text-align: center;
+	line-height: 32px;
+	font-size: 22px;
+	border-radius: 5px;
+}
+.coll-con h3 span:hover {
+	color: #fff;
+	background: #ff2400;
+	border: 1px solid #fff;
+}
+.again {
+	float: right;
+	width: 80px;
+	height: 36px;
+	border: 1px solid #ccc;
+	text-align: center;
+	line-height: 36px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+.again:hover {
+	background: lightblue;
+}
