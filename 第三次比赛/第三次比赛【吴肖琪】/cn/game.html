@@ -91,7 +91,7 @@
 <script type="text/javascript">
 	
 	var timer = null;
-	var nowTime = 60;
+	var nowTime = 10;
 	var result = [];
 	var getPic = [];
 	function init () {
@@ -202,31 +202,34 @@
 	})
 
 	var clicknum = true;
-	$('.coll-con div').click(function() {
+	$('.coll-con div img').click(function() {
 		var _this = this;
 		if (clicknum) {				
-			if ($(this).html() == '<img src="../images/question.jpg" alt="图片" title="图片">') {
-				$('.coll-con h3').css({
-					'display' : 'block'
-				})
-			} else {
 				$('.coll-con dl').css({
 					'display' : 'block'
 				})
-				$('.coll-con dl dt').html($(this).html());
+				$('.coll-con dl dt').html($(this).parent().html());
 				var xhr = new XMLHttpRequest();
 				xhr.onload = function() {
 					var result = JSON.parse(xhr.responseText);
 					var introduce = document.getElementById('introduce');
 					console.log($(_this).index())
-					introduce.innerHTML = result[$(_this).index()].content;		
+					introduce.innerHTML = result[$(_this).parent().index()].content;		
 				}
 				xhr.open('get', 'photoshow.json', true);
 				xhr.send(null);	
-			}
+			
 		};
 		clicknum = false;
 	})
+	$('.coll-con div em').click(function() {
+		if (clicknum) {
+			$('.coll-con h3').css({
+				'display' : 'block'
+			})
+		};
+		clicknum = false;
+	});
 	$('.coll-con h3 span').click(function() {
 		$(this).parent().css({
 			'display' : 'none'
